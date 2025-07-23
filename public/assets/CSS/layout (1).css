@@ -1,0 +1,96 @@
+/* css/layout.css */
+
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* --- Sidebar Layout --- */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background-color: var(--color-sidebar-bg);
+    padding: 1.5rem 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    position: fixed; /* Fixed position for desktop */
+    height: 100%;
+    overflow-y: auto;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out; /* For mobile slide-in/out */
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px; /* Offset for sidebar on desktop */
+    padding: 1.5rem;
+    width: calc(100% - 250px); /* Adjust width for sidebar */
+    flex-grow: 1; /* Allows main content to take remaining space */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1023px) { /* Tailwind's lg breakpoint is 1024px */
+    .sidebar {
+        position: fixed; /* Keep it fixed but hidden off-screen */
+        width: 250px;
+        height: 100%;
+        transform: translateX(-100%); /* Hide sidebar off-screen */
+        box-shadow: none; /* Remove shadow when hidden */
+    }
+
+    .sidebar.open {
+        transform: translateX(0); /* Slide in when open */
+    }
+
+    .main-content {
+        margin-left: 0; /* No offset on mobile */
+        width: 100%; /* Full width */
+    }
+
+    /* Overlay for when sidebar is open on mobile */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9; /* Below sidebar, above main content */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* --- Header Styles (for mobile/dashboard top bar) --- */
+.app-header {
+    background-color: var(--color-background-secondary);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+/* --- Footer Styles --- */
+.app-footer {
+    background-color: var(--color-sidebar-bg);
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--color-border);
+}
+
