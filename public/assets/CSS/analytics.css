@@ -1,0 +1,17 @@
+/* src/css/pages/analytics.css */
+
+/* Styles for Chart.js canvas elements */
+canvas {
+    max-width: 100%;
+    height: auto;
+    background-color: var(--color-background-chart);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* Chart.js specific overrides if needed */
+/* Example: Adjusting font color for chart labels */
+.chartjs-render-monitor {
+    color: var(--color-text-secondary); /* This might need to be set via Chart.js options */
+}
+
