@@ -1,0 +1,24 @@
+/* css/pages/transfer-withdraw.css */
+
+/* Styles for the tab switching functionality */
+#transferTabBtn.active,
+#withdrawTabBtn.active {
+    border-color: var(--color-primary);
+    color: var(--color-text-primary);
+}
+
+#transferTabBtn:not(.active),
+#withdrawTabBtn:not(.active) {
+    border-color: transparent;
+    color: var(--color-text-secondary);
+}
+
+#transferTabBtn:hover:not(.active),
+#withdrawTabBtn:hover:not(.active) {
+    border-color: var(--color-border);
+}
+
+.tab-content {
+    /* Base styles for tab content sections */
+}
+
