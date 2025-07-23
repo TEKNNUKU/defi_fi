@@ -1,0 +1,227 @@
+/* css/components.css */
+
+/* --- Card Styles --- */
+/* Base card styles are mostly handled by Tailwind classes like bg-gray-800, p-6, rounded-lg, shadow-lg */
+.feature-card, .step-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.feature-card:hover, .step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Button Styles --- */
+/* Primary Button (blue) */
+.btn-primary {
+    background-color: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+    padding: 0.75rem 1.5rem; /* p-3 px-6 */
+    border-radius: 0.375rem; /* rounded-md */
+    font-weight: 600; /* font-semibold */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-button-primary-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* Secondary Button (gray) */
+.btn-secondary {
+    background-color: var(--color-button-secondary-bg);
+    color: var(--color-button-secondary-text);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-button-secondary-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* Danger Button (red) */
+.btn-danger {
+    background-color: var(--color-button-danger-bg);
+    color: var(--color-button-danger-text);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-danger:hover {
+    background-color: var(--color-button-danger-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* Success Button (green) */
+.btn-success {
+    background-color: var(--color-button-success-bg);
+    color: var(--color-button-success-text);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-success:hover {
+    background-color: var(--color-button-success-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* Small Button Variant */
+.btn-sm {
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    font-size: 0.875rem; /* text-sm */
+}
+
+/* --- Table Styles --- */
+/* Table header */
+table thead th {
+    background-color: var(--color-table-header-bg);
+    color: var(--color-table-header-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+}
+
+/* Table rows */
+table tbody tr {
+    background-color: var(--color-table-row-bg);
+    transition: background-color 0.2s ease;
+}
+
+table tbody tr:hover {
+    background-color: var(--color-table-row-hover-bg);
+}
+
+table tbody td {
+    padding: 1rem 1.5rem; /* px-6 py-4 */
+    font-size: 0.875rem; /* text-sm */
+    white-space: nowrap;
+}
+
+/* --- Form Components --- */
+/* Checkbox/Radio specific styles if needed beyond Tailwind's form-checkbox/form-radio */
+.form-checkbox, .form-radio {
+    border-color: var(--color-input-border);
+    background-color: var(--color-input-bg);
+    color: var(--color-primary-focus);
+}
+
+.form-checkbox:focus, .form-radio:focus {
+    border-color: var(--color-primary-focus);
+    box-shadow: 0 0 0 2px var(--color-primary-focus-ring);
+}
+
+/* --- Tab Navigation --- */
+.tab-content {
+    /* Base style for tab content panels */
+}
+
+.tab-button {
+    /* Base style for tab buttons */
+    border-bottom-width: 2px;
+    border-color: transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-button.active {
+    border-color: var(--color-primary);
+    color: var(--color-text-primary);
+}
+
+.tab-button:not(.active):hover {
+    border-color: var(--color-input-border);
+}
+
+/* --- Modal Styles (for custom pop-ups) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--color-background-secondary);
+    padding: 2rem;
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    max-width: 500px;
+    width: 90%;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-overlay.open .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.modal-close-button:hover {
+    color: var(--color-text-primary);
+}
+
+/* --- Notification/Alert Banners --- */
+.alert-banner {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.alert-banner.success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+    border: 1px solid var(--color-success-border);
+}
+
+.alert-banner.error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+    border: 1px solid var(--color-error-border);
+}
+
+.alert-banner.info {
+    background-color: var(--color-info-bg);
+    color: var(--color-info-text);
+    border: 1px solid var(--color-info-border);
+}
+
+.alert-banner .icon {
+    margin-right: 0.75rem;
+}
+
