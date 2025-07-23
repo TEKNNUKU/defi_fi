@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeFiFi - Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/themes.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/utilities.css">
+    <link rel="stylesheet" href="/css/pages/analytics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #e6edf3;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #22272e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #444c56; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5a626b; border-radius: 10px; }
+        .sidebar {
+            width: 250px;
+            min-width: 250px;
+            background-color: #161b22;
+            padding: 1rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 10;
+        }
+        .main-content {
+            margin-left: 250px; /* Offset for sidebar */
+            padding: 1.5rem;
+            width: calc(100% - 250px);
+        }
+        @media (max-width: 1023px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-width: unset;
+                box-shadow: none;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col lg:flex-row min-h-screen">
+    <!-- Sidebar (replicated for navigation consistency) -->
+    <aside class="sidebar">
+        <div class="flex items-center justify-center py-6 mb-8">
+            <img src="/assets/images/logo.svg" alt="DeFiFi Logo" class="h-10 w-10 mr-2">
+            <h1 class="text-3xl font-bold text-blue-400">DeFiFi</h1>
+        </div>
+        <nav>
+            <ul>
+                <li class="mb-4">
+                    <a href="/html/dashboard.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/budgets.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        Budgets
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/transactions.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-6 6l-6-6m6 6v6m0-6V8m6 6v6m0-6V8"></path></svg>
+                        Transactions
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/transfer-withdraw.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                        Transfers & Withdrawals
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/analytics.html" class="flex items-center p-3 rounded-lg text-blue-400 bg-blue-900/30 hover:bg-blue-900/50 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                        Analytics
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/settings.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Settings
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="/html/tutorials.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-700 transition-colors">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.202 5 7.5 5A6.002 6.002 0 006 17.354a6.002 6.0002 0 007.5 3.646 6.002 6.002 0 007.5-3.646 6.002 6.002 0 00-1.5-11.106z"></path></svg>
+                        Tutorials
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="absolute bottom-4 left-0 right-0 px-4">
+            <div class="bg-gray-700 p-4 rounded-lg text-sm text-gray-400">
+                <p class="mb-2">Connected Wallet:</p>
+                <p id="connectedWalletAddress" class="font-mono text-xs break-all text-blue-300">0x...</p>
+                <p id="networkStatus" class="text-xs mt-1 text-green-400">Polygon Mainnet</p>
+                <button id="disconnectWalletBtn" class="mt-3 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md transition-colors">Disconnect</button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content flex-grow">
+        <header class="flex justify-between items-center mb-8">
+            <h2 class="text-4xl font-bold text-white">Analytics & Reports</h2>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-300 hover:text-blue-400">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <div class="relative">
+                    <img src="https://placehold.co/40x40/3b82f6/ffffff?text=U" alt="User Avatar" class="w-10 h-10 rounded-full cursor-pointer">
+                    <!-- Dropdown for user menu -->
+                </div>
+            </div>
+        </header>
+
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-bold text-white mb-4">Overview Charts</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold text-white mb-3">Net Worth Trend</h4>
+                    <canvas id="netWorthChart"></canvas>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold text-white mb-3">Income vs. Expense</h4>
+                    <canvas id="incomeExpenseChart"></canvas>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md lg:col-span-2">
+                    <h4 class="text-lg font-semibold text-white mb-3">Budget Adherence (This Month)</h4>
+                    <canvas id="budgetAdherenceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-bold text-white mb-4">Detailed Breakdowns</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold text-white mb-3">Spending by Category</h4>
+                    <canvas id="spendingByCategoryChart"></canvas>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md">
+                    <h4 class="text-lg font-semibold text-white mb-3">Savings Rate Over Time</h4>
+                    <canvas id="savingsRateChart"></canvas>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg shadow-md lg:col-span-2">
+                    <h4 class="text-lg font-semibold text-white mb-3">Locked Funds by Unlock Date</h4>
+                    <canvas id="lockedFundsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-4">Custom Reports</h3>
+            <div class="space-y-4">
+                <div>
+                    <label for="reportType" class="block text-gray-400 text-sm font-medium mb-2">Report Type</label>
+                    <select id="reportType" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500">
+                        <option value="transactions">Transaction History</option>
+                        <option value="budgetSummary">Budget Summary</option>
+                        <option value="lockedFunds">Locked Funds Status</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="reportStartDate" class="block text-gray-400 text-sm font-medium mb-2">Start Date</label>
+                        <input type="date" id="reportStartDate" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="reportEndDate" class="block text-gray-400 text-sm font-medium mb-2">End Date</label>
+                        <input type="date" id="reportEndDate" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md shadow-md transition-colors">Generate Report (CSV)</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Libraries -->
+    <script src="/lib/ethers.min.js"></script>
+    <!-- Page-specific JavaScript -->
+    <script src="/js/auth.js"></script>
+    <script src="/js/utils/web3.js"></script>
+    <script src="/js/utils/formatters.js"></script>
+    <script src="/js/components/header.js"></script>
+    <script src="/js/components/sidebar.js"></script>
+    <script src="/js/components/chart-renderer.js"></script>
+    <script src="/js/pages/analytics.js"></script>
+</body>
+</html>
