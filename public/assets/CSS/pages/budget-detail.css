@@ -1,0 +1,17 @@
+/* src/css/pages/budget-detail.css */
+
+/* Example: If you want a specific progress bar style for lock countdown */
+.unlock-progress-bar {
+    height: 8px;
+    background-color: var(--color-gray-600);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.unlock-progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    width: 0%; /* Controlled by JS */
+    transition: width 0.5s ease-out;
+}
+
